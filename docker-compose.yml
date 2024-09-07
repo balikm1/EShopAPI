@@ -1,0 +1,8 @@
+version: '3.7'
+
+services:
+  eshop:
+    image: eshop:${VERSION_TAG:-dev}
+    build:
+      context: .
+      dockerfile: src/EShop.API/Dockerfile.Release

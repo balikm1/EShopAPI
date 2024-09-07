@@ -1,0 +1,4 @@
+﻿Dotnet:
+    Serilog:
+        MinimumLevel:
+            Default: Debug

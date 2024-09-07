@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "EShop.API": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:52539;http://localhost:52540"
+    }
+  }
+}

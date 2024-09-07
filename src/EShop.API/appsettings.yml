@@ -1,0 +1,9 @@
+﻿Dotnet:
+    Serilog:
+        MinimumLevel:
+            Default: Information
+    Swagger:
+        ApplicationName: "EShop API"
+        ApplicationDescription: "Demo .NET Core application providing REST API for eshop products."
+        ContactName: "Martin Balik"
+        ContactEmail: ""

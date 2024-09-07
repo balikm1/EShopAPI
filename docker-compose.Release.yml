@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+  eshop:
+    environment:
+      - ASPNETCORE_URLS=https://+;http://+
+      - ASPNETCORE_ENVIRONMENT=${DEPLOYMENT_TARGET}
+    ports:
+      - "${APPLICATION_PORT}:443"
+    deploy:
+      mode: global
+      resources:
+        limits:
+          memory: 500M
+      restart_policy:
+        delay: 10s
+        max_attempts: 5
+    networks:
+      - outside
+networks:
+  outside:
+    external:
+      name: ${OVERLAY_NAME}
