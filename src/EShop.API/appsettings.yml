@@ -3,7 +3,14 @@
         MinimumLevel:
             Default: Information
     Swagger:
-        ApplicationName: "EShop API"
-        ApplicationDescription: "Demo .NET Core application providing REST API for eshop products."
-        ContactName: "Martin Balik"
-        ContactEmail: ""
+        Versions:
+            v1:
+                ApplicationName: "EShop API"
+                ApplicationDescription: "Demo .NET Core application providing REST API for eshop products."
+                ContactName: "Martin Balik"
+                ContactEmail: ""
+            v2:
+                ApplicationName: "EShop API v2"
+                ApplicationDescription: "Demo .NET Core application providing REST API for eshop products."
+                ContactName: "Martin Balik"
+                ContactEmail: ""

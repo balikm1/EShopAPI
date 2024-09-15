@@ -1,5 +1,8 @@
 ﻿using System;
+using Asp.Versioning;
+using Asp.Versioning.ApiExplorer;
 using EShop.API.Swagger;
+using EShop.API.Swagger.Configurators;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -29,9 +32,21 @@ namespace EShop.API
             Log.Logger.Debug("Injecting dependencies for starting application.");
 
             services.AddControllers();
+            services.AddApiVersioning(options =>
+            {
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.ReportApiVersions = true;
+            })
+            .AddApiExplorer(options =>
+            {
+                options.GroupNameFormat = "'v'VVV";
+                options.SubstituteApiVersionInUrl = true;
+            });
 
-            services.Configure<SwaggerOptions>(Configuration.GetSection("Dotnet:Swagger"), opt => opt.BindNonPublicProperties = true);
+            services.Configure<MultiVersionSwaggerOptions>(Configuration.GetSection("Dotnet:Swagger"), opt => opt.BindNonPublicProperties = true);
             services.AddSwaggerGen();
+            services.AddTransient<SwaggerConfiguratorFactory>();
             services.ConfigureOptions<DefaultSwaggerSetup>();
 
             Log.Logger.Debug("Dependencies are injected for starting application");
@@ -53,7 +68,8 @@ namespace EShop.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                    var swaggerConfiguratorFactory = app.ApplicationServices.GetRequiredService<SwaggerConfiguratorFactory>();
+                    swaggerConfiguratorFactory.Create().ConfigureEndpoints(c);
                 });
 
                 app.UseHttpsRedirection();
