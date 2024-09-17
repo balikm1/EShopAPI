@@ -13,7 +13,31 @@ services:
       - "${APPLICATION_PORT}:443"
     networks:
       - outside
+  sql-database.local:
+    image: mcr.microsoft.com/mssql/server:2019-CU8-ubuntu-16.04
+    container_name: sql-database.local
+    hostname: sql-database.local
+    volumes:
+      - sql_data:/var/opt/mssql
+    ports:
+      - 1433:1433
+    deploy:
+      resources:
+        limits:
+          memory: 2048M
+    logging:
+      options:
+        max-size: "1m"
+        max-file: "3"
+    environment:
+      SA_PASSWORD: "Strong@Passw0rd"
+      ACCEPT_EULA: "Y"
+    networks:
+      - outside
 networks:
   outside:
     external: true
     name: ${OVERLAY_NAME}
+volumes:
+  sql_data:
+    driver: local

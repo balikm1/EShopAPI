@@ -2,3 +2,5 @@
     Serilog:
         MinimumLevel:
             Default: Debug
+Database:
+    ConnectionString: "Server=sql-database.local;Database=EShopDB;User Id=sa;Password=Strong@Passw0rd;Integrated Security=False;Encrypt=False"

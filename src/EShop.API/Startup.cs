@@ -1,12 +1,13 @@
 ﻿using System;
 using Asp.Versioning;
-using Asp.Versioning.ApiExplorer;
+using EShop.API.Extensions;
 using EShop.API.Swagger;
 using EShop.API.Swagger.Configurators;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Serilog;
 
@@ -17,19 +18,26 @@ namespace EShop.API
     {
         /// <summary>Initializes a new instance of the <see cref="Startup"/> class.</summary>
         /// <param name="configuration">Configuration accessor</param>
-        public Startup(IConfiguration configuration)
+        /// <param name="hostEnvironment">Provider of information about the hosting environment</param>
+        public Startup(IConfiguration configuration, IHostEnvironment hostEnvironment)
         {
             Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            Environment = hostEnvironment ?? throw new ArgumentNullException(nameof(hostEnvironment));
         }
 
         /// <summary>Gets configuration accessor.</summary>
         public IConfiguration Configuration { get; }
+
+        /// <summary>Gets provider of information about the hosting environment.</summary>
+        public IHostEnvironment Environment { get; }
 
         /// <summary>This method gets called by the runtime. Use this method to add services to the container.</summary>
         /// <param name="services">Instance of Microsoft DI IoC container</param>
         public void ConfigureServices(IServiceCollection services)
         {
             Log.Logger.Debug("Injecting dependencies for starting application.");
+
+            services.AddSqlServerDbContext(Configuration, Environment);
 
             services.AddControllers();
             services.AddApiVersioning(options =>
