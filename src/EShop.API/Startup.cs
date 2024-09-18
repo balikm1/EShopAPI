@@ -57,6 +57,8 @@ namespace EShop.API
             services.AddTransient<SwaggerConfiguratorFactory>();
             services.ConfigureOptions<DefaultSwaggerSetup>();
 
+            services.AddEShopServices();
+
             Log.Logger.Debug("Dependencies are injected for starting application");
         }
 

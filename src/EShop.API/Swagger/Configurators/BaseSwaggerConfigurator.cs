@@ -29,7 +29,7 @@ namespace EShop.API.Swagger.Configurators
         /// <summary>Generates api version.</summary>
         /// <param name="options">Instance of <see cref="SwaggerOptions"/>.</param>
         /// <returns>Created instance of <see cref="OpenApiInfo"/>.</returns>
-        protected static OpenApiInfo GenerateApiInformation(SwaggerOptions options, string version = null)
+        protected static OpenApiInfo GenerateApiInformation(SwaggerOptions options, string? version = null)
         {
             return new OpenApiInfo()
             {

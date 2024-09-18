@@ -4,6 +4,6 @@
     public class DbContextOptions
     {
         /// <summary>Gets database connection string.</summary>
-        public string ConnectionString { get; set; }
+        public string ConnectionString { get; set; } = string.Empty;
     }
 }
