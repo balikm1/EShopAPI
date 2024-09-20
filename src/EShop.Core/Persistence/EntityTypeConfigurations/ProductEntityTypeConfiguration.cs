@@ -25,7 +25,8 @@ namespace EShop.Core.Persistence.EntityTypeConfigurations
 
             builder.Property(p => p.Price).IsRequired();
 
-            builder.Property(p => p.Description).HasColumnType("nvarchar(max)");
+            builder.Property(p => p.Description).IsUnicode(true);
+            builder.Property(p => p.Description).HasMaxLength(int.MaxValue);
         }
     }
 }
